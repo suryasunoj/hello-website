@@ -3,30 +3,443 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello World</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="referrer" content="no-referrer" />
+  <title>Apex Motors | Certified Pre-Owned Car Showroom</title>
+  <meta name="description" content="Discover premium, thoroughly inspected second-hand cars with verified mileage, full history, and warranty." />
+  
+  <!-- Open Graph Meta Tags for WhatsApp/Social Preview -->
+  <meta property="og:title" content="Apex Motors | Premium Pre-Owned Cars" />
+  <meta property="og:description" content="Browse verified second-hand cars. Genuine kilometers, manufacturing year, warranty, and best prices." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80" />
+  <meta property="og:type" content="website" />
+
+  <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="background-glow"></div>
-  
-  <main class="container">
-    <div class="card">
-      <span class="badge">👋 Welcome</span>
-      <h1 id="greeting">Hello!</h1>
-      <p class="subtitle">Welcome to your new website. Simple, modern, and clean.</p>
-      
-      <div class="interactive-panel">
-        <button id="change-greeting-btn" class="btn primary">Say Hello in Another Language</button>
-      </div>
 
-      <div class="language-counter">
-        <span id="lang-name">English</span>
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#" class="brand-logo">
+        <i class="fa-solid fa-car-burst"></i>
+        <span>Apex<strong>Motors</strong></span>
+      </a>
+
+      <nav class="nav-menu">
+        <a href="#inventory" class="active">Browse Cars</a>
+        <a href="#emi-calc">EMI Calculator</a>
+        <a href="#sell-car">Sell Your Car</a>
+        <a href="#why-us">Why Us</a>
+        <a href="#reviews">Reviews</a>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Favorites Wishlist Badge -->
+        <button class="btn btn-outline btn-icon" id="wishlist-btn" title="View Wishlist">
+          <i class="fa-solid fa-heart"></i>
+          <span id="wishlist-count" class="badge-count">0</span>
+        </button>
+
+        <!-- Auth Area -->
+        <div id="auth-buttons">
+          <button class="btn btn-outline" id="open-login-btn">
+            <i class="fa-regular fa-user"></i> Login / Register
+          </button>
+        </div>
+        <div id="user-profile" class="user-profile-badge" style="display: none;">
+          <span id="user-display-name">Hi, Alex</span>
+          <button id="logout-btn" class="btn-sm btn-logout" title="Log Out"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+        </div>
       </div>
     </div>
-  </main>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fa-solid fa-shield-halved"></i> 150-Point Certified Inspection & 1-Year Warranty
+      </div>
+      <h1>Drive Your Dream Car<br /><span class="highlight-text">For Half The Price.</span></h1>
+      <p class="hero-subtext">
+        Every pre-owned vehicle comes with 100% verified kilometers, spotless service history, and a 7-day money-back guarantee.
+      </p>
+
+      <!-- Quick Search Bar inside Hero -->
+      <div class="hero-search-box">
+        <div class="search-input-group">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="car-search-input" placeholder="Search by brand, model (e.g. BMW, Fortuner, Audi)..." />
+        </div>
+        <select id="hero-type-filter" class="hero-select">
+          <option value="all">All Body Types</option>
+          <option value="SUV">SUVs</option>
+          <option value="Sedan">Sedans</option>
+          <option value="Luxury">Luxury</option>
+          <option value="Electric">Electric</option>
+        </select>
+        <button class="btn btn-primary" id="hero-search-btn">Find My Car</button>
+      </div>
+
+      <!-- Quick Stats -->
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-number">450+</span>
+          <span class="stat-label">Certified Cars</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">100%</span>
+          <span class="stat-label">Verified Kilometers</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">7-Day</span>
+          <span class="stat-label">Money Back Guarantee</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">4.9 ★</span>
+          <span class="stat-label">Customer Rating</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Inventory Filter Section -->
+  <section class="inventory-section" id="inventory">
+    <div class="section-header">
+      <span class="section-tag">Featured Inventory</span>
+      <h2>Explore Verified Pre-Owned Vehicles</h2>
+      <p>Transparent pricing, verified manufacturing year, and accurate odometer readings.</p>
+    </div>
+
+    <!-- Filter Buttons & Controls -->
+    <div class="filter-bar">
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-category="all">All Cars</button>
+        <button class="filter-tab" data-category="SUV">SUVs</button>
+        <button class="filter-tab" data-category="Sedan">Sedans</button>
+        <button class="filter-tab" data-category="Luxury">Luxury</button>
+        <button class="filter-tab" data-category="Electric">Electric</button>
+      </div>
+
+      <div class="sort-wrapper">
+        <label for="sort-select"><i class="fa-solid fa-arrow-down-short-wide"></i> Sort by:</label>
+        <select id="sort-select">
+          <option value="featured">Featured First</option>
+          <option value="price-low">Price: Low to High</option>
+          <option value="price-high">Price: High to Low</option>
+          <option value="year-new">Manufacturing Year: Newest</option>
+          <option value="km-low">Kilometers: Lowest First</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Cars Grid -->
+    <div class="cars-grid" id="cars-container">
+      <!-- Injected dynamically via script.js -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="no-cars-msg" class="no-cars" style="display: none;">
+      <i class="fa-solid fa-car-on"></i>
+      <h3>No vehicles match your search.</h3>
+      <p>Try resetting your filters or searching for another keyword.</p>
+      <button class="btn btn-outline" id="reset-filters-btn">Reset All Filters</button>
+    </div>
+  </section>
+
+  <!-- Interactive EMI Calculator Section -->
+  <section class="emi-section" id="emi-calc">
+    <div class="section-header">
+      <span class="section-tag">Finance Calculator</span>
+      <h2>Estimate Your Monthly EMI</h2>
+      <p>Calculate flexible repayment plans with pre-approved loans starting from 8.5% interest.</p>
+    </div>
+
+    <div class="emi-calculator-card">
+      <div class="emi-inputs">
+        <div class="slider-group">
+          <div class="slider-header">
+            <span>Car Loan Amount</span>
+            <strong id="loan-amount-val">₹25,00,000</strong>
+          </div>
+          <input type="range" id="loan-slider" min="300000" max="6000000" step="50000" value="2500000" />
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-header">
+            <span>Down Payment</span>
+            <strong id="down-payment-val">₹5,00,000</strong>
+          </div>
+          <input type="range" id="down-payment-slider" min="50000" max="2000000" step="25000" value="500000" />
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-header">
+            <span>Loan Duration (Tenure)</span>
+            <strong id="tenure-val">5 Years (60 Months)</strong>
+          </div>
+          <input type="range" id="tenure-slider" min="1" max="7" step="1" value="5" />
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-header">
+            <span>Interest Rate (p.a.)</span>
+            <strong id="interest-val">8.5%</strong>
+          </div>
+          <input type="range" id="interest-slider" min="7.0" max="15.0" step="0.25" value="8.5" />
+        </div>
+      </div>
+
+      <div class="emi-results">
+        <div class="emi-box-main">
+          <span class="emi-label">Monthly EMI Payable</span>
+          <h3 id="monthly-emi-result">₹41,034</h3>
+          <span class="emi-sub">Zero prepayment penalty available</span>
+        </div>
+
+        <div class="emi-breakdown">
+          <div class="breakdown-row">
+            <span>Principal Loan:</span>
+            <strong id="res-principal">₹20,00,000</strong>
+          </div>
+          <div class="breakdown-row">
+            <span>Total Interest Payable:</span>
+            <strong id="res-interest" style="color: var(--accent-amber);">₹4,62,040</strong>
+          </div>
+          <div class="breakdown-row highlight">
+            <span>Total Amount (Loan + Interest):</span>
+            <strong id="res-total" style="color: #10b981;">₹24,62,040</strong>
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-block" id="apply-finance-btn">Apply For Instant Loan Approval</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sell Your Car Section -->
+  <section class="sell-car-section" id="sell-car">
+    <div class="sell-car-card">
+      <div class="sell-car-content">
+        <span class="section-tag">Instant Valuation</span>
+        <h2>Want To Sell Your Car?</h2>
+        <p>Get the highest market quote in 2 minutes. Free home inspection, instant payment, and hassle-free RC transfer.</p>
+        
+        <form id="sell-car-form" class="sell-car-form">
+          <div class="form-row">
+            <div class="input-field">
+              <label>Car Brand & Model</label>
+              <input type="text" id="sell-model" required placeholder="e.g. Honda City, Toyota Fortuner" />
+            </div>
+            <div class="input-field">
+              <label>Manufacturing Year</label>
+              <input type="number" id="sell-year" min="2005" max="2026" required placeholder="e.g. 2020" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="input-field">
+              <label>Kilometers Driven</label>
+              <input type="number" id="sell-km" required placeholder="e.g. 35000" />
+            </div>
+            <div class="input-field">
+              <label>Your Phone Number</label>
+              <input type="tel" id="sell-phone" required placeholder="+91 98765 43210" />
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">Get Instant Free Valuation Quote</button>
+        </form>
+      </div>
+
+      <div class="sell-car-image-box">
+        <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80" alt="Sell your car" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="why-us-section" id="why-us">
+    <div class="section-header">
+      <span class="section-tag">Peace Of Mind</span>
+      <h2>Why Buy From Apex Motors?</h2>
+      <p>We eliminate the risk of buying second-hand with total transparency.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fa-solid fa-clipboard-check"></i></div>
+        <h3>150-Point Inspection</h3>
+        <p>Engine, gearbox, electricals, and frame are certified by master technicians before listing.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fa-solid fa-gauge-high"></i></div>
+        <h3>Genuine Odometer Reading</h3>
+        <p>Zero tampering. Every kilometer run is verified through manufacturer service records.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+        <h3>Instant EMI & Free RC Transfer</h3>
+        <p>Paperwork handled in 24 hours with competitive financing options starting from 8.5% APR.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fa-solid fa-arrows-rotate"></i></div>
+        <h3>7-Day Return Guarantee</h3>
+        <p>If you don't fall in love with your car within 7 days or 500 km, return it for a 100% refund.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Customer Reviews -->
+  <section class="reviews-section" id="reviews">
+    <div class="section-header">
+      <span class="section-tag">Happy Drivers</span>
+      <h2>What Our Customers Say</h2>
+    </div>
+
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p>"Purchased my 2021 BMW 3 Series from Apex Motors. The car was spotless, odometer reading was completely genuine, and the test drive was arranged right at my doorstep!"</p>
+        <div class="reviewer-info">
+          <div class="reviewer-avatar">RP</div>
+          <div>
+            <strong>Rahul Pillai</strong>
+            <span>Bought BMW 330i (2021)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p>"I was nervous about buying a used SUV, but their 150-point inspection report gave me total confidence. RC transfer took only 3 days. Super happy with my Fortuner!"</p>
+        <div class="reviewer-info">
+          <div class="reviewer-avatar">AN</div>
+          <div>
+            <strong>Ananya Nair</strong>
+            <span>Bought Toyota Fortuner (2022)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p>"Fair and transparent pricing. No hidden dealer charges. The car drives like it just rolled out of the showroom. Highly recommended showroom!"</p>
+        <div class="reviewer-info">
+          <div class="reviewer-avatar">MK</div>
+          <div>
+            <strong>Muhammed Khan</strong>
+            <span>Bought Hyundai Tucson (2023)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer" id="contact">
+    <div class="footer-container">
+      <div class="footer-col">
+        <div class="brand-logo footer-logo">
+          <i class="fa-solid fa-car-burst"></i>
+          <span>Apex<strong>Motors</strong></span>
+        </div>
+        <p>Premium certified second-hand showroom. Find your perfect ride with complete trust, warranty, and verified history.</p>
+        <div class="social-links">
+          <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Showroom Timings</h4>
+        <p>Monday – Saturday: 9:00 AM – 8:00 PM</p>
+        <p>Sunday: 10:00 AM – 6:00 PM</p>
+        <p><i class="fa-solid fa-location-dot"></i> Bypass Road, Near Tech Park, Trivandrum</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Direct Contact</h4>
+        <p><i class="fa-solid fa-phone"></i> +91 98765 43210</p>
+        <p><i class="fa-solid fa-envelope"></i> contact@apexmotors.com</p>
+        <p><i class="fa-solid fa-car"></i> Over 50+ New Arrivals Every Week</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Apex Motors Pre-Owned Showroom. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Auth Modal (Login / Register) -->
+  <div class="modal-overlay" id="auth-modal">
+    <div class="modal-box">
+      <button class="modal-close-btn" id="close-auth-modal"><i class="fa-solid fa-xmark"></i></button>
+
+      <div class="modal-tabs">
+        <button class="modal-tab active" id="tab-login">Sign In</button>
+        <button class="modal-tab" id="tab-register">Register Account</button>
+      </div>
+
+      <!-- Login Form -->
+      <form id="login-form" class="auth-form active">
+        <h3>Welcome Back!</h3>
+        <p class="form-desc">Sign in to book test drives and save your favorite cars.</p>
+        <div class="input-field">
+          <label>Email Address</label>
+          <input type="email" id="login-email" required placeholder="you@example.com" />
+        </div>
+        <div class="input-field">
+          <label>Password</label>
+          <input type="password" id="login-password" required placeholder="Enter password" />
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+      </form>
+
+      <!-- Register Form -->
+      <form id="register-form" class="auth-form">
+        <h3>Create Your Account</h3>
+        <p class="form-desc">Join Apex Motors to schedule test drives & track purchases.</p>
+        <div class="input-field">
+          <label>Full Name</label>
+          <input type="text" id="reg-name" required placeholder="Your full name" />
+        </div>
+        <div class="input-field">
+          <label>Email Address</label>
+          <input type="email" id="reg-email" required placeholder="you@example.com" />
+        </div>
+        <div class="input-field">
+          <label>Phone Number</label>
+          <input type="tel" id="reg-phone" required placeholder="+91 98765 43210" />
+        </div>
+        <div class="input-field">
+          <label>Password</label>
+          <input type="password" id="reg-password" required placeholder="Create a password" />
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Complete Registration</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Test Drive / Car Details Modal -->
+  <div class="modal-overlay" id="car-modal">
+    <div class="modal-box modal-lg">
+      <button class="modal-close-btn" id="close-car-modal"><i class="fa-solid fa-xmark"></i></button>
+      <div id="car-modal-content">
+        <!-- Injected via script.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="toast"></div>
 
   <script src="script.js"></script>
 </body>
